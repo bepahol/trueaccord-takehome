@@ -1,8 +1,12 @@
 package trueaccord;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import trueaccord.util.JSONUtil;
 
 public class PaymentPlan {
     
@@ -23,10 +27,26 @@ public class PaymentPlan {
     }
     
     public static PaymentPlan parse(String json) {
+        return parseAsList(json).get(0);
+    }
+    
+    public static List<PaymentPlan> parseAsList(String json) {
         JSONArray array = (JSONArray)JSONValue.parse(json);
-        JSONObject paymentPlan = (JSONObject)array.get(0);
-        
-        return new PaymentPlan((Long)paymentPlan.get("id"), (Long)paymentPlan.get("debt_id"), (Double)paymentPlan.get("amount_to_pay"), InstallmentFrequency.valueOf((String)paymentPlan.get("installment_frequency")), (Double)paymentPlan.get("installment_amount"), (String)paymentPlan.get("start_date") );
+        List<PaymentPlan> paymentPlans = new ArrayList<>();
+        Iterator iter = array.iterator();
+        while (iter.hasNext()) {
+            JSONObject paymentPlan = (JSONObject)iter.next();
+            
+            Object amountToPay = paymentPlan.get("amount_to_pay");
+            double amountToPayAsDouble = JSONUtil.getDoubleValue(amountToPay);
+            
+            Object installmentAmount = paymentPlan.get("installment_amount");
+            double installmentAmountAsDouble = JSONUtil.getDoubleValue(installmentAmount);
+                        
+            paymentPlans.add( new PaymentPlan((Long)paymentPlan.get("id"), (Long)paymentPlan.get("debt_id"), amountToPayAsDouble, InstallmentFrequency.valueOf((String)paymentPlan.get("installment_frequency")), installmentAmountAsDouble, (String)paymentPlan.get("start_date")) );
+        }
+       
+        return paymentPlans;
     }
     
     public long getId() {

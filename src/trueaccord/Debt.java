@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import trueaccord.util.JSONUtil;
 
 public class Debt {
     
@@ -29,15 +30,9 @@ public class Debt {
             JSONObject debt = (JSONObject)iter.next();
             
             Object amount = debt.get("amount");
-            double doubleAmount;
-            if (amount instanceof Long) {
-                long longAmount = (Long)amount;
-                doubleAmount = longAmount;
-            }
-            else {
-                doubleAmount = (Double)amount;
-            }
-            debts.add( new Debt((Long)debt.get("id"), doubleAmount) );
+            double amountAsDouble = JSONUtil.getDoubleValue(amount);
+            
+            debts.add( new Debt((Long)debt.get("id"), amountAsDouble) );
         }
        
         return debts;
