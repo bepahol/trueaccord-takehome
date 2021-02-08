@@ -11,10 +11,17 @@ import static org.junit.Assert.*;
 
 public class AdminToolTest {
     
+    private Payment payment1 = Payment.parse(PaymentTest.getPayment1());
+    private Payment payment2 = new Payment(0, 0,     "");
+    private Payment payment3 = new Payment(0, 10.28, "");
+    
     private List emptyList                   = Arrays.asList();
     private PaymentPlan paymentPlan1         = PaymentPlan.parse(PaymentPlanTest.getPaymentPlan1());
     private List<PaymentPlan> onePaymentPlan = Arrays.asList(paymentPlan1);
-    private List<Payment> onePayment         = Arrays.asList(Payment.parse(PaymentTest.getPayment1()));
+    private List<Payment> onePayment         = Arrays.asList(payment1);
+    private List<Payment> twoPaymentsSame    = Arrays.asList(payment1, payment1);
+    private List<Payment> twoPaymentsDiff    = Arrays.asList(payment1, payment2);
+    private List<Payment> threePayments      = Arrays.asList(payment1, payment2, payment3);
     
     public AdminToolTest() {
     }
@@ -86,6 +93,26 @@ public class AdminToolTest {
             List<Payment> expectedPayments = (List<Payment>)testCase[2];
             
             assertEquals(expectedPayments, AdminTool.filterPayments(paymentPlan, payments));
+        }
+    }
+    
+    @Test
+    public void testGetRemainingAmount() {
+        Object[][] testCases = {
+            {paymentPlan1, emptyList, paymentPlan1.getAmountToPay()},
+            {paymentPlan1, onePayment,      51.25},
+            {paymentPlan1, twoPaymentsSame, 0.0},
+            {paymentPlan1, twoPaymentsDiff, 51.25},
+            {paymentPlan1, threePayments,   40.97},
+        };
+        
+        for (Object[] testCase : testCases) {
+            PaymentPlan paymentPlan        =   (PaymentPlan)testCase[0];
+            List<Payment> payments         = (List<Payment>)testCase[1];
+            double expectedRemainingAmount =        (double)testCase[2];
+            
+            double delta = 0;
+            assertEquals(expectedRemainingAmount, AdminTool.getRemainingAmount(paymentPlan, payments), delta);
         }
     }
     

@@ -26,6 +26,10 @@ public class Payment {
     public long getPaymentPlanId() {
         return paymentPlanId;
     }
+    
+    public double getAmount() {
+        return amount;
+    }
 
     @Override
     public int hashCode() {

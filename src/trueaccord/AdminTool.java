@@ -37,8 +37,9 @@ public class AdminTool {
         List<Payment> filteredPayments = filterPayments(paymentPlan, payments);
         
         boolean isInPaymentPlan = paymentPlan != null;
-//        double remainingAmount = getRemainingAmount()
-//        debtInfos.add(new DebtInfo(debt, isInPaymentPlan, 0, nextPaymentDueDate))
+        double remainingAmount = (!isInPaymentPlan)? debt.getAmount() : getRemainingAmount(paymentPlan, filteredPayments);
+//        String nextPaymentDueDate = (!isInPaymentPlan || remainingAmount == 0)? null : getNextPaymentDueDate(paymentPlan, filteredPayments);
+//        debtInfos.add(new DebtInfo(debt, isInPaymentPlan, remainingAmount, nextPaymentDueDate));
     }
     
     public void printDebtInfo() {
@@ -63,5 +64,23 @@ public class AdminTool {
             return new ArrayList<>();
                     
         return payments.stream().filter(payment -> paymentPlan.getId() == payment.getPaymentPlanId()).collect(Collectors.toList());
+    }
+    
+    public static double getRemainingAmount(PaymentPlan paymentPlan, List<Payment> payments) {
+        double totalSoFar = getTotalPaidSoFar(payments);
+        return paymentPlan.getAmountToPay() - totalSoFar;
+    }
+    
+    private static double getTotalPaidSoFar(List<Payment> payments) {
+        double sum = 0;
+        
+        for (Payment payment : payments) 
+            sum += payment.getAmount();
+        
+        return sum;
+    }
+    
+    public static String getNextPaymentDueDate() {
+        return "";
     }
 }

@@ -24,6 +24,10 @@ public class Debt {
     public long getId() {
         return id;
     }
+    
+    public double getAmount() {
+        return amount;
+    }
 
     @Override
     public int hashCode() {

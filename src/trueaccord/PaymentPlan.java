@@ -36,6 +36,10 @@ public class PaymentPlan {
     public long getDebtId() {
         return debtId;
     }
+    
+    public double getAmountToPay() {
+        return amountToPay;
+    }
 
     @Override
     public int hashCode() {
