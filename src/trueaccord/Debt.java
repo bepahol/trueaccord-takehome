@@ -1,5 +1,8 @@
 package trueaccord;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -15,10 +18,29 @@ public class Debt {
     }
     
     public static Debt parse(String json) {
+        return parseAsList(json).get(0);
+    }
+    
+    public static List<Debt> parseAsList(String json) {
         JSONArray array = (JSONArray)JSONValue.parse(json);
-        JSONObject debt = (JSONObject)array.get(0);
-        
-        return new Debt((Long)debt.get("id"), (Double)debt.get("amount"));
+        List<Debt> debts = new ArrayList<>();
+        Iterator iter = array.iterator();
+        while (iter.hasNext()) {
+            JSONObject debt = (JSONObject)iter.next();
+            
+            Object amount = debt.get("amount");
+            double doubleAmount;
+            if (amount instanceof Long) {
+                long longAmount = (Long)amount;
+                doubleAmount = longAmount;
+            }
+            else {
+                doubleAmount = (Double)amount;
+            }
+            debts.add( new Debt((Long)debt.get("id"), doubleAmount) );
+        }
+       
+        return debts;
     }
     
     public long getId() {

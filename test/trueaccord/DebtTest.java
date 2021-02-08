@@ -1,11 +1,14 @@
 package trueaccord;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import trueaccord.util.EndpointConsumerTest;
 
 public class DebtTest {
     
@@ -47,6 +50,18 @@ public class DebtTest {
             
             assertEquals(expected, Debt.parse(json));
         }
+    }
+    
+    @Test
+    public void testParse() {
+        List<Debt> expectedDebts = new ArrayList<>();
+        expectedDebts.add(new Debt(0, 123.46));
+        expectedDebts.add(new Debt(1, 100));
+        expectedDebts.add(new Debt(2, 4920.34));
+        expectedDebts.add(new Debt(3, 12938));
+        expectedDebts.add(new Debt(4, 9238.02));
+        
+        assertEquals(expectedDebts, Debt.parseAsList( EndpointConsumerTest.getDebtsJson()));
     }
     
     private String getDebt1() {

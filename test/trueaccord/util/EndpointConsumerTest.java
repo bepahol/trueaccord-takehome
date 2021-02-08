@@ -1,9 +1,6 @@
 package trueaccord.util;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -55,7 +52,7 @@ public class EndpointConsumerTest {
         }
     }
     
-    private String getDebtsJson() {
+    public static String getDebtsJson() {
         return "[\n" +
 "  {\n" +
 "    \"amount\": 123.46,\n" +
@@ -80,7 +77,7 @@ public class EndpointConsumerTest {
 "]";
     }
     
-    private String getPaymentPlansJson() {
+    public static String getPaymentPlansJson() {
         return "[\n" +
 "  {\n" +
 "    \"amount_to_pay\": 102.5,\n" +
@@ -117,7 +114,7 @@ public class EndpointConsumerTest {
 "]";
     }
     
-    private String getPaymentsJson() {
+    public static String getPaymentsJson() {
         return "[\n" +
 "  {\n" +
 "    \"amount\": 51.25,\n" +
