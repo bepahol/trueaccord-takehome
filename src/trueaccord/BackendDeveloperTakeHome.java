@@ -1,14 +1,17 @@
 package trueaccord;
 
-//all fields
-//bool is_in_payment_plan
-//double remaining_amount
-//ISO 8601 UTC date next_payment_due_date null if there is no payment plan or if the debt has been paid off
+import trueaccord.util.EndpointConsumer;
 
 public class BackendDeveloperTakeHome {
 
     public static void main(String[] args) throws Exception {
-        AdminTool tool = new AdminTool(null, null, null);
+        AdminTool tool = new AdminTool(
+            Debt.parseAsList(        EndpointConsumer.getJsonString("https://my-json-server.typicode.com/druska/trueaccord-mock-payments-api/debts") ), 
+            PaymentPlan.parseAsList( EndpointConsumer.getJsonString("https://my-json-server.typicode.com/druska/trueaccord-mock-payments-api/payment_plans") ), 
+            Payment.parseAsList(     EndpointConsumer.getJsonString("https://my-json-server.typicode.com/druska/trueaccord-mock-payments-api/payments") )
+        );
+        
+        System.out.println("DEBT INFO ------------");
         tool.outputDebtInfo();
     }
     

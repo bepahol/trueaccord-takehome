@@ -35,4 +35,9 @@ public class DebtInfo {
                 this.remainingAmount == other.remainingAmount &&
                 this.nextPaymentDueDate.equals(other.nextPaymentDueDate);
     }
+    
+    @Override
+    public String toString() {
+        return "[{ \"id\": " + debt.getId() + ", \"amount\": " + debt.getAmount() + ", \"is_in_payment_plan\": " + isInPaymentPlan + ", \"remaining_amount\": " + remainingAmount + ", \"next_payment_due_date\": " + ((nextPaymentDueDate.isEmpty())? "null" : nextPaymentDueDate) + "}]";
+    }
 }

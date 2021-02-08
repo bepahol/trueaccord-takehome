@@ -1,5 +1,6 @@
 package trueaccord;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -84,10 +85,21 @@ public class AdminTool {
         if (payments.isEmpty())
             return paymentPlan.getStartDate();
 
-//        LocalDateTime startDate = LocalDateTime.parse(paymentPlan.getStartDate(), DateTimeFormatter.ISO_INSTANT);
-        LocalDateTime startDate = LocalDateTime.parse(paymentPlan.getStartDate().substring(0, paymentPlan.getStartDate().length()-1), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        LocalDateTime nextPaymentDueDate = startDate.plusDays(payments.size() * paymentPlan.getInstallmentFrequency().days());
+//        LocalDateTime startDate = LocalDateTime.parse(paymentPlan.getStartDate(), DateTimeFormatter.ISO_LOCAL_DATE);
+//        LocalDateTime startDate = LocalDateTime.parse(paymentPlan.getStartDate().substring(0, paymentPlan.getStartDate().length()-1), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//        LocalDateTime nextPaymentDueDate = startDate.plusDays(payments.size() * paymentPlan.getInstallmentFrequency().days());
+//        
+//        return nextPaymentDueDate.toString() + "Z";
+
+
+
+//        https://stackoverflow.com/questions/27454025/unable-to-obtain-localdatetime-from-temporalaccessor-when-parsing-localdatetime
+//        This is a really unclear and unhelpful error message. After much trial and error I found that LocalDateTime will give the above error if you do not attempt to parse a time. By using LocalDate instead, it works without erroring.
+//        This is poorly documented and the related exception is very unhelpful.
+        LocalDate startDate = LocalDate.parse(paymentPlan.getStartDate(), DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate nextPaymentDueDate = startDate.plusDays(payments.size() * paymentPlan.getInstallmentFrequency().days());
         
-        return nextPaymentDueDate.toString() + "Z";
+        return nextPaymentDueDate.toString();
+        
     }
 }
