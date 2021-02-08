@@ -1,6 +1,8 @@
 ## How to run
 
 1. Java 8
+2. json-simple-1.1.1
+3. juni-4.12
 
 ### Netbeans
 Easiest way is to load this repo into Netbeans and run BackendDeveloperTakeHome.java
@@ -26,11 +28,15 @@ FIXME
 - Add more helper/util methods
 - Maybe change in AdminTool the params of some functions, like some of the filters methods, so that the params feels good on the handoff, feels right, feels clean
 - Maybe put back filteredPaymentPlans(list), requirement is that there's only one paymentplan, but in future (extensibility) this could change
+- Maybe write this in a language that is more JSON friendly. Or if I kept with Java, try out a diff JSON library.
 
-## Problems/Assumptions
+## Assumptions/Problems
+### Assumptions
+1. endpoint APIs returned back ids and startdates in ascending order
+2. BI_WEEKLY = twice a month (not twice a week)
 
-1. Assumption: endpoint APIs returned back ids and startdates in ascending order
-2. Not sure how you pay .085 of a dollar
+### Problems
+1. Not sure how you pay .085 of a dollar
 ```json
 [
   {
@@ -67,7 +73,7 @@ FIXME
   }
 ]
 ```
-3. Example payloads have different UTC times than the ACTUAL payloads (yyyy-mm-dd)
+2. Example payloads have different UTC times than the ACTUAL payloads (yyyy-mm-dd)
 ```json
 [{
   "id": 0,
@@ -78,7 +84,7 @@ FIXME
   "start_date": "2020-09-28T16:18:30Z"
 }]
 ```
-4. Why the actual payment date is way off from interval and start date on payment plan?
+3. Why the actual payment date is way off from interval and start date on payment plan?
 ``` json
   {
     "amount_to_pay": 4920.34,
@@ -97,11 +103,9 @@ FIXME
   },
 ```
 What to do in this case?
+The doc says "The next payment date can be calculated by using the payment plan start_date, the installment frequency, and any preexisting payments".
+My formula for payoff date: start_date + (installmentFrequency * # of payments)
 
-    The doc says "The next payment date can be calculated by using the payment plan start_date, the installment frequency, and any preexisting payments".
-    
-    My formula for payoff date: start_date + (installmentFrequency * # of payments)
-5. Assumption: BI_WEEKLY = twice a month (not twice a week)
 
 ## Endpoints
 https://my-json-server.typicode.com/druska/trueaccord-mock-payments-api/payment_plans
