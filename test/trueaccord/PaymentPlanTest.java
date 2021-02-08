@@ -49,7 +49,7 @@ public class PaymentPlanTest {
         }
     }
     
-    private String getPaymentPlan1() {
+    static String getPaymentPlan1() {
         return "[{\n" +
 "  \"id\": 0,\n" +
 "  \"debt_id\": 0,\n" +

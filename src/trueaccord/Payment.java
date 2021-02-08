@@ -22,6 +22,10 @@ public class Payment {
         
         return new Payment((Long)payment.get("payment_plan_id"), (Double)payment.get("amount"), (String)payment.get("date"));
     }
+    
+    public long getPaymentPlanId() {
+        return paymentPlanId;
+    }
 
     @Override
     public int hashCode() {

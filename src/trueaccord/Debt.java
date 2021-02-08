@@ -20,6 +20,10 @@ public class Debt {
         
         return new Debt((Long)debt.get("id"), (Double)debt.get("amount"));
     }
+    
+    public long getId() {
+        return id;
+    }
 
     @Override
     public int hashCode() {

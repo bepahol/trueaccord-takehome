@@ -28,6 +28,14 @@ public class PaymentPlan {
         
         return new PaymentPlan((Long)paymentPlan.get("id"), (Long)paymentPlan.get("debt_id"), (Double)paymentPlan.get("amount_to_pay"), InstallmentFrequency.valueOf((String)paymentPlan.get("installment_frequency")), (Double)paymentPlan.get("installment_amount"), (String)paymentPlan.get("start_date") );
     }
+    
+    public long getId() {
+        return id;
+    }
+    
+    public long getDebtId() {
+        return debtId;
+    }
 
     @Override
     public int hashCode() {

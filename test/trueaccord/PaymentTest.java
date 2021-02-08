@@ -49,7 +49,7 @@ public class PaymentTest {
         }
     }
     
-    private String getPayment1() {
+    static String getPayment1() {
         return "[{\n" +
 "  \"payment_plan_id\": 0,\n" +
 "  \"amount\": 51.25,\n" +
