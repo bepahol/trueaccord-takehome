@@ -9,7 +9,7 @@ import org.json.simple.JSONValue;
 
 public class EndpointConsumer {
     
-    public static JSONArray getJson(String urlEndpoint) throws Exception {
+    public static String getJsonString(String urlEndpoint) throws Exception {
         URL urlObj = new URL(urlEndpoint);
         HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
 
@@ -37,7 +37,11 @@ public class EndpointConsumer {
             jsonData = response.toString();
         }
         
-        return (JSONArray)JSONValue.parse(jsonData);
+        return jsonData;
+    }
+    
+    public static JSONArray getJsonArray(String urlEndpoint) throws Exception {
+        return (JSONArray)JSONValue.parse( getJsonString(urlEndpoint) );
     }
     
 }

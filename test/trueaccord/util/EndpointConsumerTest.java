@@ -48,7 +48,7 @@ public class EndpointConsumerTest {
             String urlEndpoint      = (String)testCase[0];
             String expectedJsonData = (String)testCase[1];
             
-            assertEquals(JSONValue.parse(expectedJsonData), EndpointConsumer.getJson(urlEndpoint));
+            assertEquals(JSONValue.parse(expectedJsonData), EndpointConsumer.getJsonArray(urlEndpoint));
         }
     }
     
