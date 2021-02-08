@@ -1,6 +1,7 @@
 package trueaccord;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,10 +33,10 @@ public class AdminTool {
     }
     
     private void computeDebtInfo(Debt debt, List<PaymentPlan> paymentPlans, List<Payment> payments) {
-        List<PaymentPlan> filteredPaymentPlans = filterPaymentPlans(debt, paymentPlans);
-        List<Payment>     filteredPayments     = filterPayments(filteredPaymentPlans, payments);
+        PaymentPlan paymentPlan = getPaymentPlan(debt, paymentPlans);
+        List<Payment> filteredPayments = filterPayments(paymentPlan, payments);
         
-        boolean isInPaymentPlan = !filteredPaymentPlans.isEmpty();
+        boolean isInPaymentPlan = paymentPlan != null;
 //        double remainingAmount = getRemainingAmount()
 //        debtInfos.add(new DebtInfo(debt, isInPaymentPlan, 0, nextPaymentDueDate))
     }
@@ -49,20 +50,18 @@ public class AdminTool {
         return debtInfos;
     }
     
-    public static List<PaymentPlan> filterPaymentPlans(Debt debt, List<PaymentPlan> paymentPlans) {
-        return paymentPlans.stream().filter(paymentPlan -> debt.getId() == paymentPlan.getDebtId()).collect(Collectors.toList());
-    }
-    
-    public static List<Payment> filterPayments(List<PaymentPlan> paymentPlans, List<Payment> payments) {
-        List<Payment> filteredPayments = new ArrayList<>();
-        
+    public static PaymentPlan getPaymentPlan(Debt debt, List<PaymentPlan> paymentPlans) {
         for (PaymentPlan paymentPlan : paymentPlans)
-            filteredPayments.addAll( filterPayment(paymentPlan, payments) );
+            if (debt.getId() == paymentPlan.getDebtId()) 
+                return paymentPlan;
         
-        return filteredPayments;
+        return null;
     }
     
-    public static List<Payment> filterPayment(PaymentPlan paymentPlan, List<Payment> payments) {
+    public static List<Payment> filterPayments(PaymentPlan paymentPlan, List<Payment> payments) {
+        if (paymentPlan == null)
+            return new ArrayList<>();
+                    
         return payments.stream().filter(payment -> paymentPlan.getId() == payment.getPaymentPlanId()).collect(Collectors.toList());
     }
 }

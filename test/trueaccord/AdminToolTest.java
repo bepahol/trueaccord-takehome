@@ -12,7 +12,8 @@ import static org.junit.Assert.*;
 public class AdminToolTest {
     
     private List emptyList                   = Arrays.asList();
-    private List<PaymentPlan> onePaymentPlan = Arrays.asList(PaymentPlan.parse(PaymentPlanTest.getPaymentPlan1()));
+    private PaymentPlan paymentPlan1         = PaymentPlan.parse(PaymentPlanTest.getPaymentPlan1());
+    private List<PaymentPlan> onePaymentPlan = Arrays.asList(paymentPlan1);
     private List<Payment> onePayment         = Arrays.asList(Payment.parse(PaymentTest.getPayment1()));
     
     public AdminToolTest() {
@@ -56,35 +57,35 @@ public class AdminToolTest {
     @Test
     public void testFilterPaymentPlans() {
         Object[][] testCases = {
-            {new Debt(0, 0), emptyList,      emptyList},
-            {new Debt(0, 0), onePaymentPlan, onePaymentPlan},
-            {new Debt(1, 0), onePaymentPlan, emptyList},
+            {new Debt(0, 0), emptyList,      null},
+            {new Debt(0, 0), onePaymentPlan, paymentPlan1},
+            {new Debt(1, 0), onePaymentPlan, null},
         };
         
         for (Object[] testCase : testCases) {
-            Debt debt                              =              (Debt)testCase[0];
-            List<PaymentPlan> paymentPlans         = (List<PaymentPlan>)testCase[1];
-            List<PaymentPlan> expectedPaymentPlans = (List<PaymentPlan>)testCase[2];
+            Debt debt                       =              (Debt)testCase[0];
+            List<PaymentPlan> paymentPlans  = (List<PaymentPlan>)testCase[1];
+            PaymentPlan expectedPaymentPlan =       (PaymentPlan)testCase[2];
             
-            assertEquals(expectedPaymentPlans, AdminTool.filterPaymentPlans(debt, paymentPlans));
+            assertEquals(expectedPaymentPlan, AdminTool.getPaymentPlan(debt, paymentPlans));
         }
     }
     
     @Test
     public void testFilterPayments() {
         Object[][] testCases = {
-            {emptyList, emptyList, emptyList},
-            {emptyList, onePayment, emptyList},
-            {onePaymentPlan, onePayment, onePayment},
-            {onePaymentPlan, emptyList, emptyList},
+            {null,         emptyList,  emptyList},
+            {null,         onePayment, emptyList},
+            {paymentPlan1, onePayment, onePayment},
+            {paymentPlan1, emptyList,  emptyList},
         };
         
         for (Object[] testCase : testCases) {
-            List<PaymentPlan> paymentPlans = (List<PaymentPlan>)testCase[0];
-            List<Payment> payments         =     (List<Payment>)testCase[1];
-            List<Payment> expectedPayments =     (List<Payment>)testCase[2];
+            PaymentPlan paymentPlan        =   (PaymentPlan)testCase[0];
+            List<Payment> payments         = (List<Payment>)testCase[1];
+            List<Payment> expectedPayments = (List<Payment>)testCase[2];
             
-            assertEquals(expectedPayments, AdminTool.filterPayments(paymentPlans, payments));
+            assertEquals(expectedPayments, AdminTool.filterPayments(paymentPlan, payments));
         }
     }
     
