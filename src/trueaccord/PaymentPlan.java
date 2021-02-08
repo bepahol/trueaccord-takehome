@@ -72,6 +72,10 @@ public class PaymentPlan {
     public void setInstallmentFrequency(InstallmentFrequency installmentFrequency) {
         this.installmentFrequency = installmentFrequency;
     }
+    
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 
     @Override
     public int hashCode() {
