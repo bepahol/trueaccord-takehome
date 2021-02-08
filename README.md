@@ -97,7 +97,9 @@ FIXME
   },
 ```
 What to do in this case?
+
     The doc says "The next payment date can be calculated by using the payment plan start_date, the installment frequency, and any preexisting payments".
+    
     My formula for payoff date: start_date + (installmentFrequency * # of payments)
 5. Assumption: BI_WEEKLY = twice a month (not twice a week)
 
