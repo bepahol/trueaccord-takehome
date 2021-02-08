@@ -38,6 +38,6 @@ public class DebtInfo {
     
     @Override
     public String toString() {
-        return "[{ \"id\": " + debt.getId() + ", \"amount\": " + debt.getAmount() + ", \"is_in_payment_plan\": " + isInPaymentPlan + ", \"remaining_amount\": " + remainingAmount + ", \"next_payment_due_date\": " + ((nextPaymentDueDate.isEmpty())? "null" : nextPaymentDueDate) + "}]";
+        return "[{ \"id\": " + debt.getId() + ", \"amount\": " + debt.getAmount() + ", \"is_in_payment_plan\": " + isInPaymentPlan + ", \"remaining_amount\": " + remainingAmount + ", \"next_payment_due_date\": " + ((nextPaymentDueDate.isEmpty())? "null" : "\""+nextPaymentDueDate+"\"") + "}]";
     }
 }
