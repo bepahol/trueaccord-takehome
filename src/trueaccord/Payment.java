@@ -1,8 +1,12 @@
 package trueaccord;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import trueaccord.util.JSONUtil;
 
 public class Payment {
     
@@ -17,10 +21,23 @@ public class Payment {
     }
     
     public static Payment parse(String json) {
+        return parseAsList(json).get(0);
+    }
+    
+    public static List<Payment> parseAsList(String json) {
         JSONArray array = (JSONArray)JSONValue.parse(json);
-        JSONObject payment = (JSONObject)array.get(0);
-        
-        return new Payment((Long)payment.get("payment_plan_id"), (Double)payment.get("amount"), (String)payment.get("date"));
+        List<Payment> payments = new ArrayList<>();
+        Iterator iter = array.iterator();
+        while (iter.hasNext()) {
+            JSONObject payment = (JSONObject)iter.next();
+            
+            Object amount = payment.get("amount");
+            double amountAsDouble = JSONUtil.getDoubleValue(amount);
+                        
+            payments.add( new Payment((Long)payment.get("payment_plan_id"), amountAsDouble, (String)payment.get("date")) );
+        }
+       
+        return payments;
     }
     
     public long getPaymentPlanId() {

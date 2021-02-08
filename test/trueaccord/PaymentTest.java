@@ -1,11 +1,14 @@
 package trueaccord;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import trueaccord.util.EndpointConsumerTest;
 
 public class PaymentTest {
     
@@ -49,6 +52,21 @@ public class PaymentTest {
         }
     }
     
+    @Test
+    public void testParse() {
+        List<Payment> expectedPayments = new ArrayList<>();
+        expectedPayments.add(new Payment(0, 51.25,    "2020-09-29"));
+        expectedPayments.add(new Payment(0, 51.25,    "2020-10-29"));
+        expectedPayments.add(new Payment(1, 25,       "2020-08-08"));
+        expectedPayments.add(new Payment(1, 25,       "2020-08-08"));
+        expectedPayments.add(new Payment(2, 4312.67,  "2020-08-08"));
+        expectedPayments.add(new Payment(3, 1230.085, "2020-08-01"));
+        expectedPayments.add(new Payment(3, 1230.085, "2020-08-08"));
+        expectedPayments.add(new Payment(3, 1230.085, "2020-08-15"));
+        
+        assertEquals(expectedPayments, Payment.parseAsList( EndpointConsumerTest.getPaymentsJson()));
+    }
+        
     static String getPayment1() {
         return "[{\n" +
 "  \"payment_plan_id\": 0,\n" +
