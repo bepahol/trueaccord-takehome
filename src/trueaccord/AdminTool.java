@@ -1,7 +1,8 @@
 package trueaccord;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +28,8 @@ public class AdminTool {
     }
     
     public void computeDebtInfo() {
-        for (Debt debt : debts) {
+        for (Debt debt : debts) 
             computeDebtInfo(debt, paymentPlans, payments);
-        }
     }
     
     private void computeDebtInfo(Debt debt, List<PaymentPlan> paymentPlans, List<Payment> payments) {
@@ -38,8 +38,8 @@ public class AdminTool {
         
         boolean isInPaymentPlan = paymentPlan != null;
         double remainingAmount = (!isInPaymentPlan)? debt.getAmount() : getRemainingAmount(paymentPlan, filteredPayments);
-//        String nextPaymentDueDate = (!isInPaymentPlan || remainingAmount == 0)? null : getNextPaymentDueDate(paymentPlan, filteredPayments);
-//        debtInfos.add(new DebtInfo(debt, isInPaymentPlan, remainingAmount, nextPaymentDueDate));
+        String nextPaymentDueDate = (!isInPaymentPlan || remainingAmount == 0)? "" : getNextPaymentDueDate(paymentPlan, filteredPayments);
+        debtInfos.add(new DebtInfo(debt, isInPaymentPlan, remainingAmount, nextPaymentDueDate));
     }
     
     public void printDebtInfo() {
@@ -80,7 +80,14 @@ public class AdminTool {
         return sum;
     }
     
-    public static String getNextPaymentDueDate() {
-        return "";
+    public static String getNextPaymentDueDate(PaymentPlan paymentPlan, List<Payment> payments) {
+        if (payments.isEmpty())
+            return paymentPlan.getStartDate();
+
+//        LocalDateTime startDate = LocalDateTime.parse(paymentPlan.getStartDate(), DateTimeFormatter.ISO_INSTANT);
+        LocalDateTime startDate = LocalDateTime.parse(paymentPlan.getStartDate().substring(0, paymentPlan.getStartDate().length()-1), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime nextPaymentDueDate = startDate.plusDays(payments.size() * paymentPlan.getInstallmentFrequency().days());
+        
+        return nextPaymentDueDate.toString() + "Z";
     }
 }

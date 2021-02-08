@@ -1,15 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trueaccord;
 
-/**
- *
- * @author ben-pc
- */
 public enum InstallmentFrequency {
-    WEEKLY,
-    BI_WEEKLY
+    WEEKLY (7),
+    BI_WEEKLY (14);
+    
+    private final int days;
+    
+    InstallmentFrequency(int days) {
+        this.days = days;
+    }
+
+    int days() { 
+        return days; 
+    }
+    
 }

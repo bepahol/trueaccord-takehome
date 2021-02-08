@@ -1,5 +1,6 @@
 package trueaccord;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
@@ -17,6 +18,7 @@ public class AdminToolTest {
     
     private List emptyList                   = Arrays.asList();
     private PaymentPlan paymentPlan1         = PaymentPlan.parse(PaymentPlanTest.getPaymentPlan1());
+    private PaymentPlan paymentPlan2         = PaymentPlan.parse(PaymentPlanTest.getPaymentPlan1());
     private List<PaymentPlan> onePaymentPlan = Arrays.asList(paymentPlan1);
     private List<Payment> onePayment         = Arrays.asList(payment1);
     private List<Payment> twoPaymentsSame    = Arrays.asList(payment1, payment1);
@@ -24,6 +26,7 @@ public class AdminToolTest {
     private List<Payment> threePayments      = Arrays.asList(payment1, payment2, payment3);
     
     public AdminToolTest() {
+        paymentPlan2.setInstallmentFrequency(InstallmentFrequency.BI_WEEKLY);
     }
     
     @BeforeClass
@@ -50,13 +53,50 @@ public class AdminToolTest {
         
         Debt debt = new Debt(0, 100);
         List<Debt> debts               = Arrays.asList(debt);
-        List<PaymentPlan> paymentPlans = Arrays.asList(new PaymentPlan(0, 0, 100, InstallmentFrequency.WEEKLY, 50, "Jan 1, 2021"));
-        List<Payment> payments         = Arrays.asList(new Payment(0, 50, "Jan 5, 2021"), new Payment(0, 50, "Jan 12, 2021"));
+        List<PaymentPlan> paymentPlans = emptyList;
+        List<Payment> payments         = new ArrayList<>();
         
         AdminTool adminTool = new AdminTool(debts, paymentPlans, payments);
         adminTool.computeDebtInfo();
         
-        DebtInfo expectedDebtInfo = new DebtInfo(debt, true, 0, null);
+        DebtInfo expectedDebtInfo = new DebtInfo(debt, false, 100, "");
+        assertEquals(1, adminTool.getDebtInfos().size());
+        assertEquals(expectedDebtInfo, adminTool.getDebtInfos().get(0));
+        
+        
+        
+        paymentPlans = Arrays.asList(new PaymentPlan(0, 0, 100, InstallmentFrequency.WEEKLY, 50, "2020-09-28T16:18:30Z"));
+        
+        adminTool = new AdminTool(debts, paymentPlans, payments);
+        adminTool.computeDebtInfo();
+        
+        expectedDebtInfo = new DebtInfo(debt, true, 100, "2020-09-28T16:18:30Z");
+        assertEquals(1, adminTool.getDebtInfos().size());
+        assertEquals(expectedDebtInfo, adminTool.getDebtInfos().get(0));
+        
+        
+        
+        
+        
+        payments.add(new Payment(0, 50, "Jan 5, 2021"));
+        
+        adminTool = new AdminTool(debts, paymentPlans, payments);
+        adminTool.computeDebtInfo();
+        
+        expectedDebtInfo = new DebtInfo(debt, true, 50, "2020-10-05T16:18:30Z");
+        assertEquals(1, adminTool.getDebtInfos().size());
+        assertEquals(expectedDebtInfo, adminTool.getDebtInfos().get(0));
+
+        
+        
+        
+        
+        payments.add(new Payment(0, 50, "Jan 12, 2021"));
+        
+        adminTool = new AdminTool(debts, paymentPlans, payments);
+        adminTool.computeDebtInfo();
+        
+        expectedDebtInfo = new DebtInfo(debt, true, 0, "");
         assertEquals(1, adminTool.getDebtInfos().size());
         assertEquals(expectedDebtInfo, adminTool.getDebtInfos().get(0));
     }
@@ -113,6 +153,25 @@ public class AdminToolTest {
             
             double delta = 0;
             assertEquals(expectedRemainingAmount, AdminTool.getRemainingAmount(paymentPlan, payments), delta);
+        }
+    }
+    
+    @Test
+    public void testGetNextPaymentDueDate() {  
+        Object[][] testCases = {
+            {paymentPlan1, emptyList, paymentPlan1.getStartDate()},
+            {paymentPlan1, onePayment, "2020-10-05T16:18:30Z"},
+//            {paymentPlan1, twoPaymentsSame, 0.0},
+//            {paymentPlan1, twoPaymentsDiff, 51.25},
+//            {paymentPlan1, threePayments,   40.97},
+        };
+        
+        for (Object[] testCase : testCases) {
+            PaymentPlan paymentPlan           =   (PaymentPlan)testCase[0];
+            List<Payment> payments            = (List<Payment>)testCase[1];
+            String expectedNextPaymentDueDate =        (String)testCase[2];
+            
+            assertEquals(expectedNextPaymentDueDate, AdminTool.getNextPaymentDueDate(paymentPlan, payments));
         }
     }
     

@@ -40,6 +40,18 @@ public class PaymentPlan {
     public double getAmountToPay() {
         return amountToPay;
     }
+    
+    public String getStartDate() {
+        return startDate;
+    }
+    
+    public InstallmentFrequency getInstallmentFrequency() {
+        return installmentFrequency;
+    }
+    
+    public void setInstallmentFrequency(InstallmentFrequency installmentFrequency) {
+        this.installmentFrequency = installmentFrequency;
+    }
 
     @Override
     public int hashCode() {
