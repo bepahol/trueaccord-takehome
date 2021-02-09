@@ -1,5 +1,5 @@
 ## How to run
-###Dependencies
+### Dependencies
 #### Need to download
 1. Java 8 - specifically jdk1.8.0_131 (download for your OS - https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
 #### Already committed
