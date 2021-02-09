@@ -8,9 +8,11 @@ Dependencies
 4. hamcrest-core-1.3.jar
 
 ### Netbeans
-Load this repo into Netbeans\
-RightClick Project->Properties->Libraries->Add JAR/Folder->lib/json-simple-1.1.1.jar\
-RightClick BackendDeveloperTakeHome.java->Run File
+1. Load this repo into Netbeans - NewProject->Java Project with Existing Resources->Make sure "Project Folder" is this repo name->Existing Sources, add src/ and test/\
+2. You may need to resolve hamcrest
+3. RightClick Project->Properties->Libraries->Add JAR/Folder->lib/json-simple-1.1.1.jar\
+4. RightClick BackendDeveloperTakeHome.java->Run File
+5. RightClick ProjectName->Test
 
 ### Commandline
 #### Output
