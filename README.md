@@ -16,7 +16,7 @@ compile: `javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/tru
 run: `java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome`
 #### Test
 `mkdir classes`\
-compile: `javac" -d "classes" -cp "lib/json-simple-1.1.1.jar;lib/junit-4.12.jar" src/**/*.java src/trueaccord/**/*.java test/**/*.java test/trueaccord/**/*.java`\
+compile: `javac -d "classes" -cp "lib/json-simple-1.1.1.jar;lib/junit-4.12.jar" src/**/*.java src/trueaccord/**/*.java test/**/*.java test/trueaccord/**/*.java`\
 run: `java -cp "classes;lib/json-simple-1.1.1.jar;lib/junit-4.12.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore trueaccord.AdminToolTest trueaccord.DebtInfoTest trueaccord.DebtTest trueaccord.PaymentPlanTest trueaccord.PaymentTest trueaccord.util.EndpointConsumerTest`
 
 ## What I would do if I had more time
