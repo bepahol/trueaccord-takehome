@@ -5,15 +5,15 @@ Dependencies
 3. juni-4.12.jar
 
 ### Netbeans
-Load this repo into Netbeans
-RightClick Project->Properties->Libraries->Add JAR/Folder->lib/json-simple-1.1.1.jar
-RightClick BackendDeveloperTakeHome.java->Run File
+Load this repo into Netbeans\
+RightClick Project->Properties->Libraries->Add JAR/Folder->lib/json-simple-1.1.1.jar\
+RightClick BackendDeveloperTakeHome.java->Run File\
 
 ### Commandline
 #### Output
-mkdir classes
-compile: javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/trueaccord/**/*.java
-run: java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome
+mkdir classes\
+compile: javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/trueaccord/**/*.java\
+run: java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome\
 #### Test
 FIXME
 
