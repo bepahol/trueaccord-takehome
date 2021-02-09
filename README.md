@@ -7,18 +7,19 @@ Dependencies
 ### Netbeans
 Load this repo into Netbeans\
 RightClick Project->Properties->Libraries->Add JAR/Folder->lib/json-simple-1.1.1.jar\
-RightClick BackendDeveloperTakeHome.java->Run File\
+RightClick BackendDeveloperTakeHome.java->Run File
 
 ### Commandline
 #### Output
 `mkdir classes`\
 compile: `javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/trueaccord/**/*.java`\
-run: `java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome`\
+run: `java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome`
 #### Test
-FIXME
+`mkdir classes`\
+compile: `javac" -d "classes" -cp "lib/json-simple-1.1.1.jar;lib/junit-4.12.jar" src/**/*.java src/trueaccord/**/*.java test/**/*.java test/trueaccord/**/*.java`
+run: `java -cp "classes;lib/json-simple-1.1.1.jar;lib/junit-4.12.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore trueaccord.AdminToolTest trueaccord.DebtInfoTest trueaccord.DebtTest trueaccord.PaymentPlanTest trueaccord.PaymentTest trueaccord.util.EndpointConsumerTest`
 
 ## What I would do if I had more time
-
 - Add more comments
 - More thorough testing for null checks, boundary cases, invalid inputs/cases, run scenarios, etc
 - Add javadocs, for like constructors, add descriptions, etc i.e. documentation
@@ -28,11 +29,12 @@ FIXME
     i.e. things like, tweak arraylist init sizes
 - Optimize code
     i.e. shortcircuit paymentplans if they are empty and not call filterPayments
-- Rename some things like DebtInfos or find better readable names
+- Rename some things, like DebtInfo, and/or find better readable names
 - Add more helper/util methods
 - Maybe change in AdminTool the params of some functions, like some of the filters methods, so that the params feels good on the handoff, feels right, feels clean
 - Maybe put back filteredPaymentPlans(list), requirement is that there's only one paymentplan, but in future (extensibility) this could change
 - Maybe write this in a language that is more JSON friendly. Or if I kept with Java, try out a diff JSON library.
+- Change DebtInfo.toString() to use a json formatter
 
 ## Assumptions/Problems
 ### Assumptions
@@ -110,8 +112,7 @@ FIXME
 - The doc says "The next payment date can be calculated by using the payment plan start_date, the installment frequency, and any preexisting payments".
 - My formula for payoff date: start_date + (installmentFrequency * # of payments)
 
-
-## Endpoints
+## Endpoints (snapshots at the time of implementation)
 https://my-json-server.typicode.com/druska/trueaccord-mock-payments-api/payment_plans
 ```json
 [
