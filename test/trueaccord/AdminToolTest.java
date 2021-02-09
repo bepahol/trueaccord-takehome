@@ -114,7 +114,7 @@ public class AdminToolTest {
     @Test
     public void testGetRemainingAmount() {
         Object[][] testCases = {
-            {paymentPlan1, emptyList, paymentPlan1.getAmountToPay()},
+            {paymentPlan1, emptyList,       paymentPlan1.getAmountToPay()},
             {paymentPlan1, onePayment,      51.25},
             {paymentPlan1, twoPaymentsSame, 0.0},
             {paymentPlan1, twoPaymentsDiff, 51.25},
@@ -134,11 +134,11 @@ public class AdminToolTest {
     @Test
     public void testGetNextPaymentDueDate() {  
         Object[][] testCases = {
-            {paymentPlan1, emptyList, paymentPlan1.getStartDate()},
-            {paymentPlan1, onePayment, "2020-10-05"},
-//            {paymentPlan1, twoPaymentsSame, 0.0},
-//            {paymentPlan1, twoPaymentsDiff, 51.25},
-//            {paymentPlan1, threePayments,   40.97},
+            {paymentPlan1, emptyList,       paymentPlan1.getStartDate()},
+            {paymentPlan1, onePayment,      "2020-10-05"},
+            {paymentPlan1, twoPaymentsSame, "2020-10-12"},
+            {paymentPlan1, twoPaymentsDiff, "2020-10-12"},
+            {paymentPlan1, threePayments,   "2020-10-19"},
         };
         
         for (Object[] testCase : testCases) {

@@ -38,7 +38,7 @@ run: `java -cp "classes;lib/json-simple-1.1.1.jar;lib/junit-4.12.jar;lib/hamcres
 
 ## Assumptions/Problems
 ### Assumptions
-1. endpoint APIs returned back ids and startdates in ascending order
+1. endpoint APIs return back ids and startdates in ascending order
 2. BI_WEEKLY = twice a month (not twice a week)
 
 ### Problems
