@@ -1,8 +1,11 @@
 ## How to run
 Dependencies
-1. Java 8
+### Need to download
+1. Java 8 - specifically jdk1.8.0_131 (download for your OS - https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
+### Already committed
 2. json-simple-1.1.1.jar
-3. juni-4.12.jar
+3. junit-4.12.jar
+4. hamcrest-core-1.3.jar
 
 ### Netbeans
 Load this repo into Netbeans\
