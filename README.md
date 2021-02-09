@@ -1,15 +1,19 @@
 ## How to run
-
+Dependencies
 1. Java 8
-2. json-simple-1.1.1
-3. juni-4.12
+2. json-simple-1.1.1.jar
+3. juni-4.12.jar
 
 ### Netbeans
-Easiest way is to load this repo into Netbeans and run BackendDeveloperTakeHome.java
+Load this repo into Netbeans
+RightClick Project->Properties->Libraries->Add JAR/Folder->lib/json-simple-1.1.1.jar
+RightClick BackendDeveloperTakeHome.java->Run File
 
 ### Commandline
-#### Src
-FIXME
+#### Output
+mkdir classes
+compile: javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/trueaccord/**/*.java
+run: java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome
 #### Test
 FIXME
 
@@ -102,9 +106,9 @@ FIXME
     "payment_plan_id": 2
   },
 ```
-What to do in this case?
-The doc says "The next payment date can be calculated by using the payment plan start_date, the installment frequency, and any preexisting payments".
-My formula for payoff date: start_date + (installmentFrequency * # of payments)
+- What to do in this case?
+- The doc says "The next payment date can be calculated by using the payment plan start_date, the installment frequency, and any preexisting payments".
+- My formula for payoff date: start_date + (installmentFrequency * # of payments)
 
 
 ## Endpoints
