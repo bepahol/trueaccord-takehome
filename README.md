@@ -15,7 +15,7 @@
 5. RightClick ProjectName->Test
 
 ### Commandline
-1. Obviously git clone <repo> and cd into <repo>
+1. Obviously `git clone <repo>` and `cd <repo>`
 2. `mkdir classes`
 #### Windows
 ##### Run program
