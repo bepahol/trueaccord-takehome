@@ -1,8 +1,8 @@
 ## How to run
 ### Dependencies
-#### Need to download
+#### You need to download this if you don't have java
 1. Java 8 - specifically jdk1.8.0_131 (download for your OS - https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
-#### Already committed
+#### No need to download, I already committed these to the repo in lib/
 2. json-simple-1.1.1.jar
 3. junit-4.12.jar
 4. hamcrest-core-1.3.jar
@@ -15,14 +15,23 @@
 5. RightClick ProjectName->Test
 
 ### Commandline
-#### Output
-`mkdir classes`\
+1. Obviously git clone <repo> and cd into <repo>
+2. `mkdir classes`
+#### Windows
+##### Run program
 compile: `javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/trueaccord/**/*.java`\
 run: `java -cp "classes;lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome`
-#### Test
-`mkdir classes`\
+##### Run tests
 compile: `javac -d "classes" -cp "lib/json-simple-1.1.1.jar;lib/junit-4.12.jar" src/**/*.java src/trueaccord/**/*.java test/**/*.java test/trueaccord/**/*.java`\
 run: `java -cp "classes;lib/json-simple-1.1.1.jar;lib/junit-4.12.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore trueaccord.AdminToolTest trueaccord.DebtInfoTest trueaccord.DebtTest trueaccord.PaymentPlanTest trueaccord.PaymentTest trueaccord.util.EndpointConsumerTest`
+
+#### Mac/linux (only diff is replacing classpath "-cp" to use ':' instead of ';')
+##### Run program
+compile: `javac -d "classes" -cp lib/json-simple-1.1.1.jar src/**/*.java src/trueaccord/**/*.java`\
+run: `java -cp "classes:lib/json-simple-1.1.1.jar" trueaccord/BackendDeveloperTakeHome`
+##### Run tests
+compile: `javac -d "classes" -cp "lib/json-simple-1.1.1.jar:lib/junit-4.12.jar" src/**/*.java src/trueaccord/**/*.java test/**/*.java test/trueaccord/**/*.java`\
+run: `java -cp "classes:lib/json-simple-1.1.1.jar:lib/junit-4.12.jar:lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore trueaccord.AdminToolTest trueaccord.DebtInfoTest trueaccord.DebtTest trueaccord.PaymentPlanTest trueaccord.PaymentTest trueaccord.util.EndpointConsumerTest`
 
 ## What I would do if I had more time
 - Add more comments
